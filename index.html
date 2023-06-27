@@ -83,6 +83,11 @@
       width: 20px;
       border-radius: 50%;
     }
+    
+    .arrow,
+    .label {
+      user-select: none;
+    }
   </style>
 </head>
 <body>
@@ -109,9 +114,9 @@
     </div>
   </div>
   <div class="slider-container">
-    <label for="slider-left">Working experience only</label>
+    <label class="label">Working experience only</label>
     <input type="range" id="slider-left" min="0" max="1" step="0.05" value="0.95">
-    <label for="slider-right">Damage only</label>
+    <label class="label">Damage only</label>
   </div>
 
   <script>
