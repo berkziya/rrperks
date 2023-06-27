@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RR Perks</title>
+  <style>
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .number-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .number {
+      text-align: center;
+      -webkit-appearance: none;
+      appearance: none;
+      -moz-appearance: textfield;
+      border: none;
+      width: 70px;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .number-box .arrow:first-child {
+      margin-bottom: 18px;
+    }
+
+    .number-box .label {
+      font-size: 18px;
+      cursor: default;
+    }
+
+    .arrow {
+      color: #222222;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    .prominent-arrow {
+      color: #bc002d;
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .slider-container label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .slider-container {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 100%;
+    }
+
+    input[type="range"]::-webkit-slider-thumb,
+    input[type="range"]::-moz-range-thumb,
+    input[type="range"]::-ms-thumb {
+      background-color: #bc002d;
+      border: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="number-box">
+      <div class="arrow" id="strarrow" onclick="increment('str')">&uarr;</div>
+      <div class="label">Strength</div>
+      <input type="number" id="str" class="number" value="250" onchange="updateNumber('str')">
+      <div class="arrow" onclick="decrement('str')">&darr;</div>
+    </div>
+
+    <div class="number-box">
+      <div class="arrow" id="eduarrow" onclick="increment('edu')">&uarr;</div>
+      <div class="label">Education</div>
+      <input type="number" id="edu" class="number" value="200" onchange="updateNumber('edu')">
+      <div class="arrow" onclick="decrement('edu')">&darr;</div>
+    </div>
+
+    <div class="number-box">
+      <div class="arrow" id="endarrow" onclick="increment('end')">&uarr;</div>
+      <div class="label">Endurance</div>
+      <input type="number" id="end" class="number" value="200" onchange="updateNumber('end')">
+      <div class="arrow" onclick="decrement('end')">&darr;</div>
+    </div>
+  </div>
+  <div class="slider-container">
+    <label for="slider-left">Working experience only</label>
+    <input type="range" id="slider-left" min="0" max="1" step="0.05" value="0.95">
+    <label for="slider-right">Damage only</label>
+  </div>
+
+  <script>
+    function increment(elementId) {
+      const numberElement = document.getElementById(elementId);
+      let number = parseInt(numberElement.value);
+      numberElement.value = number + 1;
+      calculate();
+    }
+
+    function decrement(elementId) {
+      const numberElement = document.getElementById(elementId);
+      let number = parseInt(numberElement.value);
+      numberElement.value = number - 1;
+      calculate();
+    }
+
+    function updateNumber(elementId) {
+      const numberElement = document.getElementById(elementId);
+      let number = parseInt(numberElement.value);
+      if (isNaN(number)) {
+        numberElement.value = '';
+      } else {
+        numberElement.value = number;
+      }
+      calculate();
+    }
+
+    function calculate() {
+      const eduweight = parseFloat(document.getElementById('slider-left').value);
+
+      const str = parseInt(document.getElementById('str').value);
+      const edu = parseInt(document.getElementById('edu').value);
+      const end = parseInt(document.getElementById('end').value);
+
+      const strtime = Math.pow(str+1, 2) * 0.5;
+      const edutime = Math.pow(edu+1, 2) * eduweight;
+      const endtime = Math.pow(end+1, 2);
+
+      document.getElementById('strarrow').classList.remove('prominent-arrow');
+      document.getElementById('eduarrow').classList.remove('prominent-arrow');
+      document.getElementById('endarrow').classList.remove('prominent-arrow');
+
+      if (edutime <= strtime && edutime <= endtime) {
+        document.getElementById('eduarrow').classList.add('prominent-arrow');
+      } else if (strtime <= endtime) {
+        document.getElementById('strarrow').classList.add('prominent-arrow');
+      } else {
+        document.getElementById('endarrow').classList.add('prominent-arrow');
+      }
+    }
+  </script>
+</body>
+</html>
