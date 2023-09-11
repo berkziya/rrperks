@@ -68,10 +68,10 @@
 
     .slider-container {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 100%;
+      top: 75%;
+      left: 35%;
+      width: 50%;
+      /* transform: translate(-50%, -50%); */
     }
 
     input[type="range"]::-webkit-slider-thumb,
@@ -228,15 +228,15 @@
         upgrade.style.border = '1px solid black';
 
         if (order[i] === 'str') {
-          upgrade.style.backgroundColor = 'yellow';
+          upgrade.style.backgroundColor = 'magenta';
           upgrade.innerHTML = `Str ${str + 1}`;
           str++;
         } else if (order[i] === 'edu') {
-          upgrade.style.backgroundColor = 'green';
+          upgrade.style.backgroundColor = 'cyan';
           upgrade.innerHTML = `Edu ${edu + 1}`;
           edu++;
         } else if (order[i] === 'end') {
-          upgrade.style.backgroundColor = 'red';
+          upgrade.style.backgroundColor = 'yellow';
           upgrade.innerHTML = `End ${end + 1}`;
           end++;
         }
